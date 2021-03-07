@@ -1,0 +1,29 @@
+package orders.control;
+
+import orders.models.Category;
+import orders.services.CategoryService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
+@RestController
+@RequestMapping("/category")
+public class CategoryController {
+
+    @Autowired
+    private CategoryService service;
+
+    @GetMapping("/list")
+    public List<Category> getList() {
+        return service.getAll();
+    }
+
+    @GetMapping("/details")
+    public Category getDetails(@RequestParam("id") Integer id) {
+        return service.getById(id);
+    }
+}
