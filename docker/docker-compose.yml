@@ -1,0 +1,14 @@
+version: '2'
+services:
+  db:
+    image: postgres:12.5
+    environment:
+      POSTGRES_DB: orders
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: Zxcv1234
+  orders:
+    image: mikebychkov/orders
+    ports:
+      - 8888:8888
+    environment:
+      DB_SERVER: tcp://db:5432/orders
