@@ -14,3 +14,8 @@ spring:
     url: "jdbc:postgresql://db:5432/orders"
     username: "admin"
     password: "Zxcv1234"
+
+logging:
+  level:
+    org.springframework.data: warn
+    org.hhibernate: warn

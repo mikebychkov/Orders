@@ -6,13 +6,13 @@ import lombok.Data;
 public class OrderResponse {
 
     private String status;
-    private Integer id;
+    private Integer invoiceId;
     private String info;
 
-    public static OrderResponse of(String status, Integer id, String info) {
+    public static OrderResponse of(String status, Integer invoiceId, String info) {
         OrderResponse or = new OrderResponse();
         or.setStatus(status);
-        or.setId(id);
+        or.setInvoiceId(invoiceId);
         or.setInfo(info);
         return or;
     }

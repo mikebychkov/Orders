@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class OrderService {
@@ -26,10 +27,11 @@ public class OrderService {
     private InvoiceService invoiceService;
 
     public Order getById(Integer id) {
+        Optional<Order> op = ServiceHelper.checkId(id, repo, "Order");
         return repo.findById(id).get();
     }
 
-    public Order addOrder(Integer custId, Integer prodId, Short quantity) {
+    public Invoice addOrder(Integer custId, Integer prodId, Short quantity) throws Exception {
 
         ServiceHelper.checkValue(quantity, "Quantity");
 
@@ -41,14 +43,14 @@ public class OrderService {
         order.setDate(ServiceHelper.getRecentDate());
         order.setCustomer(customer);
 
-        // DETAILS
-        order.setDetails(List.of(detailsService.addOrderDetails(order, product, quantity)));
-
         Order savedOrder = repo.save(order);
 
-        // INVOICE
-        invoiceService.addInvoice(savedOrder);
+        // DETAILS
+        OrderDetails savedDetails = detailsService.addOrderDetails(savedOrder, product, quantity);
 
-        return savedOrder;
+        // INVOICE
+        Invoice savedInvoice = invoiceService.addInvoice(savedOrder, List.of(savedDetails));
+
+        return savedInvoice;
     }
 }

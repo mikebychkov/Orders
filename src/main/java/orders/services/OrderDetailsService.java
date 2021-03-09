@@ -7,6 +7,8 @@ import orders.store.OrderDetailsRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class OrderDetailsService {
 
@@ -19,5 +21,9 @@ public class OrderDetailsService {
         od.setProduct(product);
         od.setQuantity(quantity);
         return repo.save(od);
+    }
+
+    public List<OrderDetails> getByOrder(Order order) {
+        return repo.getAllByOrOrder(order);
     }
 }

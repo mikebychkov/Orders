@@ -3,8 +3,7 @@ package orders.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Calendar;
-import java.util.List;
+import java.util.GregorianCalendar;
 
 @Data
 @Entity
@@ -15,12 +14,9 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Calendar date;
+    private GregorianCalendar date;
 
     @ManyToOne
     @JoinColumn(name = "cust_id")
     private Customer customer;
-
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
-    private List<OrderDetails> details;
 }

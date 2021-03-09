@@ -18,8 +18,12 @@ public class CustomerService {
         return repo.findAll();
     }
 
-    public Customer getById(Integer id) {
+    public Customer getById(Integer id) throws Exception {
         Optional<Customer> op = ServiceHelper.checkId(id, repo, "Customer");
         return op.get();
+    }
+
+    public Customer addCustomer(Customer customer) {
+        return repo.save(customer);
     }
 }

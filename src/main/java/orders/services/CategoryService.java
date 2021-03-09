@@ -1,7 +1,6 @@
 package orders.services;
 
 import orders.models.Category;
-import orders.models.Product;
 import orders.store.CategoryRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,5 +21,9 @@ public class CategoryService {
     public Category getById(Integer id) {
         Optional<Category> op = ServiceHelper.checkId(id, repo, "Category");
         return op.get();
+    }
+
+    public Category addCategory(Category category) {
+        return repo.save(category);
     }
 }

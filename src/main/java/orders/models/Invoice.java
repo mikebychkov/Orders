@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @Data
 @Entity
@@ -16,7 +17,7 @@ public class Invoice {
 
     private Double amount;
     private Calendar issued;
-    private Calendar due;
+    private GregorianCalendar due;
 
     @OneToOne
     @JoinColumn(name = "ord_id")

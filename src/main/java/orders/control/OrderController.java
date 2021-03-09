@@ -1,9 +1,11 @@
 package orders.control;
 
 import orders.control.responses.OrderResponse;
+import orders.models.Invoice;
 import orders.models.Order;
 import orders.services.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -14,8 +16,12 @@ public class OrderController {
     private OrderService service;
 
     @GetMapping("/details")
-    public Order getDetails(@RequestParam("id") Integer id) {
-        return service.getById(id);
+    public ResponseEntity<Order> getDetails(@RequestParam("id") Integer id) {
+        try {
+            return ResponseEntity.ok(service.getById(id));
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PostMapping("/add")
@@ -23,14 +29,15 @@ public class OrderController {
                                 , @RequestParam("prod_id") Integer prodId
                                 , @RequestParam("quantity") Short quantity) {
 
-        String status = "FAILED";
+        String status = "";
         Integer id = null;
         String info = "";
         try {
             status = "SUCCESS";
-            Order savedOrder = service.addOrder(custId, prodId, quantity);
-            id = savedOrder.getId();
+            Invoice invoice = service.addOrder(custId, prodId, quantity);
+            id = invoice.getId();
         } catch (Exception e) {
+            status = "FAILED";
             info = e.getLocalizedMessage();
             e.printStackTrace();
         }

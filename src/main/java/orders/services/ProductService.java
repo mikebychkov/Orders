@@ -18,8 +18,12 @@ public class ProductService {
         return repo.findAll();
     }
 
-    public Product getById(Integer id) {
+    public Product getById(Integer id) throws Exception {
         Optional<Product> op = ServiceHelper.checkId(id, repo, "Product");
         return op.get();
+    }
+
+    public Product addProduct(Product product) {
+        return repo.save(product);
     }
 }

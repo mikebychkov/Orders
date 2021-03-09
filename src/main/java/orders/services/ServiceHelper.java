@@ -13,13 +13,13 @@ public class ServiceHelper {
         return date;
     }
 
-    public static <V> void checkValue(V value, String name) {
+    public static <V> void checkValue(V value, String name) throws IllegalArgumentException {
         if (value == null) {
             throw new IllegalArgumentException(String.format("%s not specified!", name));
         }
     }
 
-    public static <T, K> Optional<T> checkId(K id, JpaRepository<T, K> repo, String name) {
+    public static <T, K> Optional<T> checkId(K id, JpaRepository<T, K> repo, String name) throws IllegalArgumentException {
         checkValue(id, name);
         Optional<T> op = repo.findById(id);
         if (op.isEmpty()) {
