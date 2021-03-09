@@ -18,4 +18,5 @@ spring:
 logging:
   level:
     org.springframework.data: warn
-    org.hhibernate: warn
+    org.hibernate: warn
+    orders: debug

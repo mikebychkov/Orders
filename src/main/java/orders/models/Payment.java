@@ -3,7 +3,7 @@ package orders.models;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Calendar;
+import java.util.GregorianCalendar;
 
 @Data
 @Entity
@@ -14,7 +14,7 @@ public class Payment {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    private Calendar date;
+    private GregorianCalendar date;
     private Double amount;
 
     @ManyToOne

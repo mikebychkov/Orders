@@ -1,9 +1,9 @@
 package orders.models;
 
+import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.Data;
 
 import javax.persistence.*;
-import java.util.Calendar;
 import java.util.GregorianCalendar;
 
 @Data
@@ -16,7 +16,7 @@ public class Invoice {
     private Integer id;
 
     private Double amount;
-    private Calendar issued;
+    private GregorianCalendar issued;
     private GregorianCalendar due;
 
     @OneToOne
